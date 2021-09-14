@@ -6,6 +6,7 @@ import kotlinx.coroutines.reactor.awaitSingle
 import org.springdoc.core.annotations.RouterOperation
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.http.MediaType
 import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.server.ServerRequest
 import org.springframework.web.reactive.function.server.ServerResponse
@@ -21,8 +22,10 @@ internal class HelloFunctional(
         operation = Operation(method = "GET", operationId = "hello")
     ) // OpenAPI only
     fun router() = coRouter {
-        "/rest/functional".nest {
-            GET("/hello").invoke(handler::helloResponse)
+        accept(MediaType.APPLICATION_JSON).nest {
+            "/rest/functional".nest {
+                GET("/hello").invoke(handler::helloResponse)
+            }
         }
     }
 }
