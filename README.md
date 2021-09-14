@@ -43,8 +43,8 @@ query helloWorld{
 }
 
 # with paramter
-query helloIITS{
-  hello(name:"ITTS") {
+query hellorRob{
+  hello(name:"Rob") {
     greeting
   }
 }
@@ -54,7 +54,7 @@ query helloIITS{
 
 ```grahpql
 subscription {
-  hello(name: "ITTS") {
+  hello(name: "Rob") {
     greeting
     time
   }
@@ -70,8 +70,8 @@ subscription {
 
 * Annotation based:
   * [GET Hello (Default)](http://localhost:8082/rest/annotations/hello)
-  * [GET Hello (Custom)](http://localhost:8082/rest/annotations/hello?name=IITS)
-  * [GET Hello (SSE)](http://localhost:8082/rest/annotations/hello/sse?name=IITS)
+  * [GET Hello (Custom)](http://localhost:8082/rest/annotations/hello?name=rowi1de)
+  * [GET Hello (SSE)](http://localhost:8082/rest/annotations/hello/sse?name=rowi1de)
 * Functional:
   * [GET Hello (Default)](http://localhost:8082/rest/functional/hello)
 
