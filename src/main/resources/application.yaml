@@ -1,0 +1,18 @@
+server:
+  port: 8082
+
+spring:
+  banner:
+    image:
+      location: classpath:iits-logo.png
+
+graphql:
+  packages:
+    - "de.rowi1de.reactive.graphql"
+  subscriptions:
+    endpoint: subscriptions
+    keep-alive-interval: 1000
+
+springdoc:
+  api-docs:
+    path: "/api-docs"
