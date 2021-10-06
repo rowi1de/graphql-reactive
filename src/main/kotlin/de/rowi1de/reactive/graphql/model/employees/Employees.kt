@@ -5,6 +5,10 @@ import java.util.UUID
 data class Teams(
     val teams: List<Team>
 )
+{
+    val count:Int
+        get() = teams.size
+}
 
 data class Team(
     val name: String,
@@ -28,8 +32,11 @@ data class Team(
 }
 
 data class Employees(
-    val employees: List<Employee>
-)
+    val employees: List<Employee>,
+){
+    val count:Int
+        get() = employees.size
+}
 
 data class Employee(
     val firstName: String,
