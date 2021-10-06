@@ -11,8 +11,8 @@ plugins {
 
 group = "de.rowi1de.graphql"
 version = "0.0.1-SNAPSHOT"
-java.sourceCompatibility = JavaVersion.VERSION_1_8
-java.targetCompatibility = JavaVersion.VERSION_1_8
+java.sourceCompatibility = JavaVersion.VERSION_11
+java.targetCompatibility = JavaVersion.VERSION_11
 
 repositories {
     mavenCentral()
@@ -29,7 +29,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
 
     // GraphQL
-    implementation("com.expediagroup:graphql-kotlin-spring-server:4.2.0")
+    implementation("com.expediagroup:graphql-kotlin-spring-server:5.0.0")
 
     // Rest
     implementation("org.springdoc:springdoc-openapi-kotlin:1.5.11") {
@@ -53,7 +53,7 @@ tasks.withType<KotlinCompile> {
             "-Xopt-in=kotlin.RequiresOptIn",
             "-Xopt-in=kotlinx.coroutines.ObsoleteCoroutinesApi"
         )
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
 }
 
