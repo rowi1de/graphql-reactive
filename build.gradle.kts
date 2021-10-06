@@ -11,8 +11,8 @@ plugins {
 
 group = "de.rowi1de.graphql"
 version = "0.0.1-SNAPSHOT"
-java.sourceCompatibility = JavaVersion.VERSION_1_8
-java.targetCompatibility = JavaVersion.VERSION_1_8
+java.sourceCompatibility = JavaVersion.VERSION_11
+java.targetCompatibility = JavaVersion.VERSION_11
 
 repositories {
     mavenCentral()
@@ -53,7 +53,7 @@ tasks.withType<KotlinCompile> {
             "-Xopt-in=kotlin.RequiresOptIn",
             "-Xopt-in=kotlinx.coroutines.ObsoleteCoroutinesApi"
         )
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
 }
 
