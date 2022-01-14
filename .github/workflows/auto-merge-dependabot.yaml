@@ -1,6 +1,4 @@
-nes (39 sloc)  1.76 KB
- name: Automatically Update Dependencies
-
+name: Automatically Update Dependencies
 # `pull_request_target` grants access to secrets and runs in the scope of the *destination* branch.
 # Specifically we listen for the labelled event.
 on:
