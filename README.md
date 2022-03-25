@@ -1,4 +1,4 @@
-# Reactive Graphql
+# Reactive Graphql [![Kotlin CI with Gradle](https://github.com/rowi1de/graphql-reactive/actions/workflows/gradle.yml/badge.svg)](https://github.com/rowi1de/graphql-reactive/actions/workflows/gradle.yml)
 
 Simple Spring WebFlux Project (see [Help.md](HELP.md)) with:
 
