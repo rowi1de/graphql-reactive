@@ -114,5 +114,6 @@ mutation newEmployee {
 
 
 # GitHub
-
+- [Dependabot](https://github.com/rowi1de/graphql-reactive/blob/main/.github/dependabot.yml)
 ## Actions
+- [![Automatically Update Dependencies](https://github.com/rowi1de/graphql-reactive/actions/workflows/auto-merge-dependabot.yaml/badge.svg)](https://github.com/rowi1de/graphql-reactive/actions/workflows/auto-merge-dependabot.yaml) self-approving Dependabot PRs
