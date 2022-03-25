@@ -14,6 +14,6 @@ class BrokenQuery : Query {
 
     suspend fun partialBroken(env: DataFetchingEnvironment): DataFetcherResult<HelloGraphql> =
         DataFetcherResult.newResult<HelloGraphql>()
-            .data(HelloGraphql("Hello"))
+            .data(HelloGraphql("Broken"))
             .error(newError(env).message("Still something wrong").build()).build()
 }
