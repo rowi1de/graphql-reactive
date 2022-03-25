@@ -33,8 +33,6 @@ Use [playground](http://localhost:8082/playground) to execute queries and browse
 or [js-graphql](https://plugins.jetbrains.com/plugin/8097-js-graphql)
 
 #### Query
-
-- Simple ones, see schema for complex example
 ```graphql
 #default value
 query helloWorld{
@@ -71,6 +69,31 @@ subscription {
   hello(name: "Rob") {
     greeting
     time
+  }
+}
+```
+
+#### Employee Example
+```graphql
+subscription employees {
+  employees {
+    firstName
+    team {
+      name
+    }
+  }
+}
+
+mutation newEmployee {
+  newEmployee(
+    newEmployee: { firstName: "Tim", lastName: "Test", teamName: "Dev" }
+  ) {
+    firstName
+    team {
+      employees {
+        firstName
+      }
+    }
   }
 }
 ```

@@ -27,7 +27,7 @@ class EmployeeService {
         return newEmployee
     }
 
-    suspend fun employees(): Flow<Employee> = channel.asFlow()
+    fun employees(): Flow<Employee> = channel.asFlow()
 
     private val teams: MutableMap<String, Team> = mutableMapOf()
 
