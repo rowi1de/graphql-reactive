@@ -35,7 +35,7 @@ or [js-graphql](https://plugins.jetbrains.com/plugin/8097-js-graphql)
 #### Query
 
 - Simple ones, see schema for complex example
-```grahpql
+```graphql
 #default value
 query helloWorld{
   hello {
@@ -66,7 +66,7 @@ query hello {
 
 #### Subscription
 
-```grahpql
+```graphql
 subscription {
   hello(name: "Rob") {
     greeting
