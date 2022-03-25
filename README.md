@@ -34,6 +34,7 @@ or [js-graphql](https://plugins.jetbrains.com/plugin/8097-js-graphql)
 
 #### Query
 
+- Simple ones, see schema for complex example
 ```grahpql
 #default value
 query helloWorld{
@@ -43,12 +44,25 @@ query helloWorld{
 }
 
 # with paramter
-query hellorRob{
+query helloRob{
   hello(name:"Rob") {
     greeting
   }
 }
 ```
+- Partial Results / Errors
+```graphql
+query hello {
+  hello(name: "Rob") {
+    greeting
+  }
+  partialBroken {
+    greeting
+  }
+}
+
+```
+
 
 #### Subscription
 

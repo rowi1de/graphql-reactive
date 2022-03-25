@@ -9,6 +9,10 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
+/**
+ * These endpoints won't work due to cycle in Model (Employee<>Team)
+ * and REST doesn't support a Graph with specified depth out of the box
+ */
 @RestController
 @RequestMapping("/rest/employees")
 internal class EmployeeController(private val service: EmployeeService) {
