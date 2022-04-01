@@ -4,7 +4,7 @@ import org.springframework.boot.gradle.tasks.bundling.BootBuildImage
 plugins {
     id("org.springframework.boot") version "2.6.6"
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
-    kotlin("jvm") version "1.6.10"
+    kotlin("jvm") version "1.6.20"
     kotlin("plugin.spring") version "1.6.10"
     kotlin("kapt") version "1.6.10"
 }
