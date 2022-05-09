@@ -29,7 +29,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
 
     // GraphQL
-    implementation("com.expediagroup:graphql-kotlin-spring-server:5.3.2")
+    implementation("com.expediagroup:graphql-kotlin-spring-server:5.4.0")
 
     // Rest
     implementation("org.springdoc:springdoc-openapi-kotlin:1.6.8") {
