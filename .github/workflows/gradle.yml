@@ -27,6 +27,12 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew build
 
+    - name: Publish Test Report
+        uses: mikepenz/action-junit-report@v3
+        if: always()
+        with:
+          report_paths: '**/build/test-results/test/TEST-*.xml'  
+
   ktlint:
     name: Check Code Quality
     runs-on: ubuntu-latest
