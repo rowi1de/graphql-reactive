@@ -58,7 +58,24 @@ tasks.withType<KotlinCompile> {
 }
 
 tasks.getByName<BootBuildImage>("bootBuildImage") {
-    imageName = project.name // don't include Version
+    imageName = project.name
+    val repoName = "ghcr.io/rowi1de"
+    val fullName = "$repoName/$imageName"
+    val branchCommitHashTag: String? =
+        getEnvironmentVariable("IMAGE_TAG_BRANCH_COMMIT").takeUnless { it.isNullOrBlank() }
+    if (repoName != null) {
+        tags = listOfNotNull(
+            branchCommitHashTag
+        ).map { "$fullName:$it" }
+            .toList()
+    }
+    docker{
+        publishRegistry{
+            url = repoName
+            email = "hello@robert-wiesner.de"
+            password = System.getenv("GHCR_TOKEN")
+        }
+    }
 }
 
 tasks.withType<Test> {

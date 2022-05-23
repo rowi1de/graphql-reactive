@@ -87,6 +87,7 @@ jobs:
         env:
           IMAGE_TAG_BRANCH_COMMIT: ${{ steps.image-tags.outputs.branch_commit_tag }}
           IMAGE_TAG_BRANCH: ${{ steps.image-tags.outputs.branch_tag }}
+          GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
   build-push-image-dry-run:
     name: Build OCI Image (Dry Run)
