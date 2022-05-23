@@ -20,7 +20,7 @@ spec:
           image:  "{{ required "image is required" .Values.image }}:{{ required "tag is required" .Values.tag }}"
           imagePullPolicy: {{ .Values.imagePullPolicy }}
           securityContext:
-            readOnlyRootFilesystem: true
+            readOnlyRootFilesystem: false # https://github.com/paketo-buildpacks/ca-certificates doesn't work
             runAsNonRoot: true
             runAsUser: 123
           envFrom:
