@@ -15,7 +15,7 @@ spec:
       labels:
         type: {{ .Release.Name }}
     spec:
-      - containers:
+      containers:
         - name: {{ .Release.Name }}
           image:  "{{ required "image is required" .Values.image }}:{{ required "tag is required" .Values.tag }}"
           imagePullPolicy: {{ .Values.imagePullPolicy }}
@@ -49,4 +49,3 @@ spec:
               port: {{ .Values.environment.SERVER_PORT }}
             initialDelaySeconds: 10
             periodSeconds: 3
-
