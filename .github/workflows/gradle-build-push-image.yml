@@ -84,8 +84,8 @@ jobs:
       - name: Push OCI to GitHub Packages
         run: |
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
-          docker tag $IMAGE_ID:$IMAGE_TAG_BRANCH_COMMIT
-          docker tag $IMAGE_ID:$IMAGE_TAG_BRANCH
+          docker tag $IMAGE_ID $IMAGE_ID:$IMAGE_TAG_BRANCH_COMMIT
+          docker tag $IMAGE_ID $IMAGE_ID:$IMAGE_TAG_BRANCH
           docker push $IMAGE_ID --all-tags
         env:
           IMAGE_TAG_BRANCH_COMMIT: ${{ steps.image-tags.outputs.branch_commit_tag }}
@@ -136,9 +136,8 @@ jobs:
 
       - name: Push OCI to GitHub Packages (Dry Run)
         run: |
-          IMAGE_ID=$REGISTRY/$IMAGE_NAME
-          docker tag $IMAGE_ID:$IMAGE_TAG_BRANCH_COMMIT
-          docker tag $IMAGE_ID:$IMAGE_TAG_BRANCH
+          docker tag $IMAGE_ID $IMAGE_ID:$IMAGE_TAG_BRANCH_COMMIT
+          docker tag $IMAGE_ID $IMAGE_ID:$IMAGE_TAG_BRANCH
           docker push $IMAGE_ID --all-tags –-dry-run
         env:
           IMAGE_TAG_BRANCH_COMMIT: ${{ steps.image-tags.outputs.branch_commit_tag }}
