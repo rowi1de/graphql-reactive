@@ -41,11 +41,11 @@ spec:
             httpGet:
               path: /actuator/health/liveness
               port: {{ .Values.environment.SERVER_PORT }}
-            initialDelaySeconds: 10
-            periodSeconds: 3
+            initialDelaySeconds: 30
+            periodSeconds: 10
           readinessProbe:
             httpGet:
               path: /actuator/health/readiness
               port: {{ .Values.environment.SERVER_PORT }}
-            initialDelaySeconds: 10
-            periodSeconds: 3
+            initialDelaySeconds: 30
+            periodSeconds: 10
