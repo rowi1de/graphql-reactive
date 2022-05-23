@@ -63,20 +63,27 @@ tasks.getByName<BootBuildImage>("bootBuildImage") {
     val fullName = "$repoName/$imageName"
     val branchCommitHashTag: String? =
         getEnvironmentVariable("IMAGE_TAG_BRANCH_COMMIT").takeUnless { it.isNullOrBlank() }
-    if (repoName != null) {
-        tags = listOfNotNull(
-            branchCommitHashTag
-        ).map { "$fullName:$it" }
-            .toList()
-    }
-    docker{
-        publishRegistry{
+    tags = listOfNotNull(
+        branchCommitHashTag
+    ).map { "$fullName:$it" }
+        .toList()
+    docker {
+        publishRegistry {
             url = repoName
             email = "hello@robert-wiesner.de"
             password = System.getenv("GHCR_TOKEN")
         }
     }
 }
+
+/**
+ * Get value from environment variables and return if not blank or null.
+ * @param name name of the environment variable
+ * @param default default if null or blank
+ * @return value or default
+ */
+fun getEnvironmentVariable(name: String, default: String? = null): String? =
+    System.getenv()[name].takeUnless { it.isNullOrBlank() } ?: default
 
 tasks.withType<Test> {
     useJUnitPlatform()
