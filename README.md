@@ -1,4 +1,4 @@
-# Reactive Graphql [![Kotlin CI with Gradle](https://github.com/rowi1de/graphql-reactive/actions/workflows/gradle.yml/badge.svg)](https://github.com/rowi1de/graphql-reactive/actions/workflows/gradle.yml)
+# Reactive Graphql [![Kotlin CI with Gradle, Build & Push OCI Image](https://github.com/rowi1de/graphql-reactive/actions/workflows/gradle-build-push-image.yml/badge.svg)](https://github.com/rowi1de/graphql-reactive/actions/workflows/gradle-build-push-image.yml) [![Release & Push Helm Charts](https://github.com/rowi1de/graphql-reactive/actions/workflows/helm-release-push-charts.yaml/badge.svg)](https://github.com/rowi1de/graphql-reactive/actions/workflows/helm-release-push-charts.yaml)
 
 Simple Spring WebFlux Project (see [Help.md](HELP.md)) with:
 
