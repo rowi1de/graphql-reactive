@@ -4,6 +4,8 @@ on:
   workflow_run:
     workflows: ["Kotlin CI with Gradle, Build & Push OCI Image"]
     types: [completed]
+    branches: 
+    - main
   
 jobs:
   helm-publish-and-release-charts:
