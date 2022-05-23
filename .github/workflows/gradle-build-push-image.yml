@@ -82,14 +82,17 @@ jobs:
 
       - name: Build OCI with Gradle
         run: ./gradlew bootBuildImage --imageName ghcr.io/$IMAGE_NAME
-        env:
-          IMAGE_TAG_BRANCH_COMMIT: ${{ steps.image-tags.outputs.branch_commit_tag }}
-          IMAGE_TAG_BRANCH: ${{ steps.image-tags.outputs.branch_tag }}
 
       - name: Log in to registry
         run: |
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
-          docker push ghcr.io/$IMAGE_NAME
+          IMAGE_ID=ghcr.io/${{ github.repository_owner }}/$IMAGE_NAME
+          docker tag $IMAGE_NAME $IMAGE_ID:$IMAGE_TAG_BRANCH_COMMIT
+          docker tag $IMAGE_NAME $IMAGE_ID:$IMAGE_TAG_BRANCH
+          docker push $IMAGE_NAME --all-tags
+        env:
+          IMAGE_TAG_BRANCH_COMMIT: ${{ steps.image-tags.outputs.branch_commit_tag }}
+          IMAGE_TAG_BRANCH: ${{ steps.image-tags.outputs.branch_tag }}
           
   build-push-image-dry-run:
     name: Build OCI Image (Dry Run)
