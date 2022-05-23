@@ -79,17 +79,16 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build OCI with Gradle
-        run: ./gradlew bootBuildImage --imageName $IMAGE_NAME
+        run: ./gradlew bootBuildImage
+        env:
+          IMAGE_TAG_BRANCH_COMMIT: ${{ steps.image-tags.outputs.branch_commit_tag }}
+          IMAGE_TAG_BRANCH: ${{ steps.image-tags.outputs.branch_tag }}
 
       - name: Push OCI to GitHub Packages
         run: |
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
-          docker tag $IMAGE_ID $IMAGE_ID:$IMAGE_TAG_BRANCH_COMMIT
-          docker tag $IMAGE_ID $IMAGE_ID:$IMAGE_TAG_BRANCH
           docker push $IMAGE_ID --all-tags
         env:
-          IMAGE_TAG_BRANCH_COMMIT: ${{ steps.image-tags.outputs.branch_commit_tag }}
-          IMAGE_TAG_BRANCH: ${{ steps.image-tags.outputs.branch_tag }}
           IMAGE_ID: ${{env.REGISTRY}}/${{env.IMAGE_NAME}}
           
   build-push-image-dry-run:
@@ -132,15 +131,11 @@ jobs:
         run: ./gradlew bootBuildImage --imageName $REGISTRY/$IMAGE_NAME
         env:
           IMAGE_TAG_BRANCH_COMMIT: ${{ steps.image-tags.outputs.branch_commit_tag }}
-          IMAGE_TAG_BRANCH: ${{ steps.image-tags.outputs.branch_tag }}
+          IMAGE_TAG_BRANCH: ${{ steps.image-tags.outputs.branch_tag }
 
       - name: Push OCI to GitHub Packages (Dry Run)
         run: |
-          docker tag $IMAGE_ID $IMAGE_ID:$IMAGE_TAG_BRANCH_COMMIT
-          docker tag $IMAGE_ID $IMAGE_ID:$IMAGE_TAG_BRANCH
           docker push $IMAGE_ID --all-tags –-dry-run
         env:
-          IMAGE_TAG_BRANCH_COMMIT: ${{ steps.image-tags.outputs.branch_commit_tag }}
-          IMAGE_TAG_BRANCH: ${{ steps.image-tags.outputs.branch_tag }}
           IMAGE_ID: ${{env.REGISTRY}}/${{env.IMAGE_NAME}}
           

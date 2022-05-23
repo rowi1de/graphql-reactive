@@ -55,3 +55,28 @@ tasks.withType<KotlinCompile> {
         jvmTarget = "17"
     }
 }
+
+
+tasks.named<org.springframework.boot.gradle.tasks.bundling.BootBuildImage>("bootBuildImage") {
+    val fullName = getEnvironmentVariable("REGISTRY", "docker.io/library") + "/" + project.name
+    imageName = fullName
+    val branchCommitHashTag: String? =
+        getEnvironmentVariable("IMAGE_TAG_BRANCH_COMMIT")
+    val branchLatestHashTag: String? =
+        getEnvironmentVariable("IMAGE_TAG_BRANCH")
+    tags = listOfNotNull(
+        branchCommitHashTag,
+        branchLatestHashTag
+    ).map {
+        "$fullName:$it"
+    }
+}
+
+/**
+ * Get value from environment variables and return if not blank or null.
+ * @param name name of the environment variable
+ * @param default default if null or blank
+ * @return value or default
+ */
+fun getEnvironmentVariable(name: String, default: String? = null): String? =
+    System.getenv()[name].takeUnless { it.isNullOrBlank() } ?: default
