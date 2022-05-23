@@ -63,14 +63,14 @@ jobs:
         uses: endaft/action-yamler@v1.0.9
         with:
           # The path to a yaml file
-          file: ./k8s/helm-app/Chart.yaml
+          file: ./k8s/helm/Chart.yaml
           path: version 
           set:  ${{ steps.semvers.outputs.patch }}
           
       - name: Install helm
         uses: Azure/setup-helm@v1
           
-      - name: Push helm-app chart
+      - name: Push helm chart
         uses: appany/helm-oci-chart-releaser@v0.3.0
         with:
            repository: graphql-reactive
