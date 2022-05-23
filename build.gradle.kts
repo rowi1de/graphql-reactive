@@ -62,7 +62,7 @@ tasks.getByName<BootBuildImage>("bootBuildImage") {
     val repoName = "ghcr.io/rowi1de"
     val fullName = "$repoName/$imageName"
     val branchCommitHashTag: String? =
-        getEnvironmentVariable("IMAGE_TAG_BRANCH_COMMIT").takeUnless { it.isNullOrBlank() }
+        getEnvironmentVariable("IMAGE_TAG_BRANCH_COMMIT")
     tags = listOfNotNull(
         branchCommitHashTag
     ).map { "$fullName:$it" }
@@ -71,7 +71,7 @@ tasks.getByName<BootBuildImage>("bootBuildImage") {
         publishRegistry {
             url = repoName
             email = "hello@robert-wiesner.de"
-            password = System.getenv("GHCR_TOKEN")
+            token = requireNotNull(getEnvironmentVariable("GHCR_TOKEN")){"GHCR_TOKEN not set"}
         }
     }
 }
