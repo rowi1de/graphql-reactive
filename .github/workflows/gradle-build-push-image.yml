@@ -83,7 +83,10 @@ jobs:
         env:
           IMAGE_TAG_BRANCH_COMMIT: ${{ steps.image-tags.outputs.branch_commit_tag }}
           IMAGE_TAG_BRANCH: ${{ steps.image-tags.outputs.branch_tag }}
+          # https://github.com/paketo-buildpacks/ca-certificates#configuration
           BP_EMBED_CERTS: true
+          BP_RUNTIME_CERT_BINDING_DISABLED: true
+          BP_ENABLE_RUNTIME_CERT_BINDING: false
 
       - name: Push OCI to GitHub Packages
         run: |
@@ -131,7 +134,10 @@ jobs:
         env:
           IMAGE_TAG_BRANCH_COMMIT: ${{ steps.image-tags.outputs.branch_commit_tag }}
           IMAGE_TAG_BRANCH: ${{ steps.image-tags.outputs.branch_tag }}
+          # https://github.com/paketo-buildpacks/ca-certificates#configuration
           BP_EMBED_CERTS: true
+          BP_RUNTIME_CERT_BINDING_DISABLED: true
+          BP_ENABLE_RUNTIME_CERT_BINDING: false
 
       - name: Push OCI to GitHub Packages (Dry Run)
         run: |
