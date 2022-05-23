@@ -5,10 +5,10 @@ imagePullPolicy: Always
 
 
 resources:
-  memoryMiBReq: 1000
-  cpuMilliReq: 250
-  memoryMiBLim: 2000
-  cpuMilliLim: 1500
+  memoryMiBReq: 300
+  cpuMilliReq: 50
+  memoryMiBLim: 500
+  cpuMilliLim: 100
 
 
 environment:

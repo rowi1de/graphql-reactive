@@ -23,14 +23,15 @@ class SecurityConfig {
                 )
                 .permitAll()
                 .and()
-                // REST
+                // REST & OpenAPI, Actuator
                 .authorizeExchange()
                 .pathMatchers(
                     "/rest/**",
                     "/api-docs/**", // OpenAPI
                     "/api-docs.yaml", // OpenAPI
                     "/swagger-ui.html", // OpenAPI
-                    "/webjars/**" // OpenAPI
+                    "/webjars/**", // OpenAPI
+                    "/actuator/health/**" // Actuator
                 )
                 .permitAll()
                 .anyExchange()
