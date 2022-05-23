@@ -6,9 +6,9 @@ imagePullPolicy: Always
 
 resources:
   memoryMiBReq: 300
-  cpuMilliReq: 50
+  cpuMilliReq: 500
   memoryMiBLim: 500
-  cpuMilliLim: 100
+  cpuMilliLim: 1000
 
 
 environment:
