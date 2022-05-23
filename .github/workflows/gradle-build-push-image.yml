@@ -78,16 +78,18 @@ jobs:
           cache: gradle
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
-          
-      - name: Log in to registry
-        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
+
 
       - name: Build OCI with Gradle
-        run: ./gradlew bootBuildImage --imageName $IMAGE_NAME --publishImage
+        run: ./gradlew bootBuildImage --imageName ghcr.io/$IMAGE_NAME
         env:
           IMAGE_TAG_BRANCH_COMMIT: ${{ steps.image-tags.outputs.branch_commit_tag }}
           IMAGE_TAG_BRANCH: ${{ steps.image-tags.outputs.branch_tag }}
-          GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Log in to registry
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
+          docker push ghcr.io/$IMAGE_NAME
           
   build-push-image-dry-run:
     name: Build OCI Image (Dry Run)

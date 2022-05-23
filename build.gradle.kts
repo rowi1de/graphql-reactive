@@ -1,5 +1,4 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import org.springframework.boot.gradle.tasks.bundling.BootBuildImage
 
 plugins {
     id("org.springframework.boot") version "2.7.0"
@@ -55,36 +54,4 @@ tasks.withType<KotlinCompile> {
         )
         jvmTarget = "17"
     }
-}
-
-tasks.getByName<BootBuildImage>("bootBuildImage") {
-    imageName = project.name
-    val repoName = "ghcr.io/rowi1de"
-    val fullName = "$repoName/$imageName"
-    val branchCommitHashTag: String? =
-        getEnvironmentVariable("IMAGE_TAG_BRANCH_COMMIT")
-    tags = listOfNotNull(
-        branchCommitHashTag
-    ).map { "$fullName:$it" }
-        .toList()
-    docker {
-        publishRegistry {
-            url = repoName
-            email = "hello@robert-wiesner.de"
-            token = requireNotNull(getEnvironmentVariable("GHCR_TOKEN")){"GHCR_TOKEN not set"}
-        }
-    }
-}
-
-/**
- * Get value from environment variables and return if not blank or null.
- * @param name name of the environment variable
- * @param default default if null or blank
- * @return value or default
- */
-fun getEnvironmentVariable(name: String, default: String? = null): String? =
-    System.getenv()[name].takeUnless { it.isNullOrBlank() } ?: default
-
-tasks.withType<Test> {
-    useJUnitPlatform()
 }
