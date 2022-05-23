@@ -73,7 +73,7 @@ jobs:
       - name: Push helm-app chart
         uses: appany/helm-oci-chart-releaser@v0.3.0
         with:
-           repository: ocpi-service
+           repository: graphql-reactive
            registry: ghcr.io/${{ github.repository_owner }}
            registry_username: __token__
            registry_password: ${{ secrets.GITHUB_TOKEN }}
@@ -87,7 +87,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ steps.semvers.outputs.patch }}
-          release_name: ocpi-service ${{ steps.semvers.outputs.patch }}
+          release_name: graphql-reactive ${{ steps.semvers.outputs.patch }}
           draft: false
           prerelease: false
         
