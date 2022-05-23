@@ -83,7 +83,7 @@ jobs:
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
 
       - name: Build OCI with Gradle
-        run: ./gradlew bootBuildImage --imageName $IMAGE_NAME
+        run: ./gradlew bootBuildImage --imageName ghcr.io/rowi1de/$IMAGE_NAME --publishImage
         env:
           IMAGE_TAG_BRANCH_COMMIT: ${{ steps.image-tags.outputs.branch_commit_tag }}
           IMAGE_TAG_BRANCH: ${{ steps.image-tags.outputs.branch_tag }}
@@ -125,7 +125,7 @@ jobs:
 
 
       - name: Build OCI with Gradle
-        run: ./gradlew bootBuildImage --imageName $IMAGE_NAME  --publishImage
+        run: ./gradlew bootBuildImage --imageName  ghcr.io/rowi1de/$IMAGE_NAME
         env:
           IMAGE_TAG_BRANCH_COMMIT: ${{ steps.image-tags.outputs.branch_commit_tag }}
           IMAGE_TAG_BRANCH: ${{ steps.image-tags.outputs.branch_tag }}
