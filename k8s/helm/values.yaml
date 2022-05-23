@@ -1,0 +1,17 @@
+# Default values
+
+image: "ghcr.io/rowi1de/graphql-reactive"
+tag: "main-latest"
+
+imagePullPolicy: Always
+
+
+resources:
+  memoryMiBReq: 1000
+  cpuMilliReq: 250
+  memoryMiBLim: 2000
+  cpuMilliLim: 1500
+
+
+environment:
+  SERVER_PORT: 8082

@@ -1,0 +1,13 @@
+apiVersion: v2
+name: graphql-reactive
+description: graphql-reactive deployment
+type: application
+
+
+version: 0.0.1
+
+appVersion: "0.0.1"
+
+maintainers:
+  - name: "rowi1de"
+    url: "https://github.com/rowi1de"

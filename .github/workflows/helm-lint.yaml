@@ -1,0 +1,64 @@
+
+name: Helm Lint
+
+on: 
+  pull_request:
+    paths: 
+      - 'k8s/**'
+
+jobs:
+  kube-linter:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.9.1
+        with:
+          access_token: ${{ github.token }}
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Scan repo with kube-linter
+        uses: stackrox/kube-linter-action@v1.0.4
+        with:
+          directory: ./k8s
+
+  helm-ct-lint-install:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.9.1
+        with:
+          access_token: ${{ github.token }}
+
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Set up Helm
+        uses: azure/setup-helm@v2.1
+        with:
+          version: v3.8.1
+
+      - uses: actions/setup-python@v3
+        with:
+          python-version: 3.7
+
+      - name: Set up chart-testing
+        uses: helm/chart-testing-action@v2.2.1
+
+      - name: Run chart-testing (list-changed)
+        id: list-changed
+        run: |
+          changed=$(ct list-changed --target-branch ${{ github.event.repository.default_branch }})
+          if [[ -n "$changed" ]]; then
+            echo "::set-output name=changed::true"
+          fi
+        working-directory: ./k8s
+
+      - name: Run chart-testing (lint)
+        run: ct lint
+        working-directory: ./k8s
+        if: steps.list-changed.outputs.changed == 'true'
+

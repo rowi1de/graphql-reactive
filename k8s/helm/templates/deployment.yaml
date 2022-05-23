@@ -1,0 +1,49 @@
+metadata:
+  name: {{ .Release.Name }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    type: {{ .Release.Name }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      type: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        type: {{ .Release.Name }}
+    spec:
+        - name: {{ .Release.Name }}
+          image:  "{{ required "image is required" .Values.image }}:{{ required "tag is required" .Values.tag }}"
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
+          securityContext:
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            runAsUser: 123
+          envFrom:
+            - configMapRef:
+                name: {{ .Release.Name }}
+          ports:
+            - containerPort: {{ required "environment.SERVER_PORT is required" .Values.environment.SERVER_PORT }}
+              name: http
+              protocol: TCP
+          resources:
+            requests:
+              memory: {{ required "resources.memoryMiBReq is required" .Values.resources.memoryMiBReq }}Mi
+              cpu: {{ required "resources.cpuMilliReq is required" .Values.resources.cpuMilliReq }}m
+            limits:
+              memory: {{ required "resources.memoryMiBLim is required" .Values.resources.memoryMiBLim }}Mi
+              cpu: {{ required "resources.cpuMilliLim is required" .Values.resources.cpuMilliLim }}m
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: {{ .Values.environment.SERVER_PORT }}
+            initialDelaySeconds: 10
+            periodSeconds: 3
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: {{ .Values.environment.SERVER_PORT }}
+            initialDelaySeconds: 10
+            periodSeconds: 3
+
