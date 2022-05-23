@@ -5,6 +5,10 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+    
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
 
 jobs:
   build-gradle:
@@ -74,25 +78,16 @@ jobs:
           cache: gradle
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
-
+          
+      - name: Log in to registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
 
       - name: Build OCI with Gradle
         run: ./gradlew bootBuildImage --imageName $IMAGE_NAME
-
         env:
           IMAGE_TAG_BRANCH_COMMIT: ${{ steps.image-tags.outputs.branch_commit_tag }}
           IMAGE_TAG_BRANCH: ${{ steps.image-tags.outputs.branch_tag }}
-          AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
-          ECR_REGISTRY: ${{ steps.aws-login-ecr.outputs.registry}}/reev-main-awseuc1-pp-ecr
-          IMAGE_NAME:   ocpi-service
-
-      - name: Push image to Amazon ECR
-        run: |
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY --all-tags
-        env:
-          ECR_REGISTRY: ${{ steps.aws-login-ecr.outputs.registry}}/reev-main-awseuc1-pp-ecr
-          ECR_REPOSITORY: ocpi-service
-
+          
   build-push-image-dry-run:
     name: Build OCI Image (Dry Run)
     runs-on: ubuntu-latest
@@ -124,16 +119,13 @@ jobs:
           java-version: '17'
           distribution: 'adopt'
           cache: gradle
+      
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
 
       - name: Build OCI with Gradle
-        run: ./gradlew bootBuildImage --imageName $IMAGE_NAME
-
+        run: ./gradlew bootBuildImage --imageName $IMAGE_NAME  --publishImage
         env:
           IMAGE_TAG_BRANCH_COMMIT: ${{ steps.image-tags.outputs.branch_commit_tag }}
           IMAGE_TAG_BRANCH: ${{ steps.image-tags.outputs.branch_tag }}
-          AWS_ACCOUNT_ID: "123456"
-          ECR_REGISTRY: "ecr.eu-central-1.amazonaws.com"
-          IMAGE_NAME:   ocpi-service
