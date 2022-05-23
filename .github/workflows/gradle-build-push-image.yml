@@ -87,9 +87,7 @@ jobs:
       - name: Push OCI to GitHub Packages
         run: |
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
-          docker push $IMAGE_ID --all-tags
-        env:
-          IMAGE_ID: ${{env.REGISTRY}}/${{env.IMAGE_NAME}}
+          docker push $REGISTRY/$IMAGE_NAME --all-tags
           
   build-push-image-dry-run:
     name: Build OCI Image (Dry Run)
@@ -128,14 +126,13 @@ jobs:
 
 
       - name: Build OCI with Gradle
-        run: ./gradlew bootBuildImage --imageName $REGISTRY/$IMAGE_NAME
+        run: ./gradlew bootBuildImage
         env:
           IMAGE_TAG_BRANCH_COMMIT: ${{ steps.image-tags.outputs.branch_commit_tag }}
           IMAGE_TAG_BRANCH: ${{ steps.image-tags.outputs.branch_tag }}
 
       - name: Push OCI to GitHub Packages (Dry Run)
         run: |
-          docker push $IMAGE_ID --all-tags –-dry-run
-        env:
-          IMAGE_ID: ${{env.REGISTRY}}/${{env.IMAGE_NAME}}
+          echo docker push $REGISTRY/$IMAGE_NAME --all-tags
+
           
