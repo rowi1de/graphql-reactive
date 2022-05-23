@@ -83,6 +83,7 @@ jobs:
         env:
           IMAGE_TAG_BRANCH_COMMIT: ${{ steps.image-tags.outputs.branch_commit_tag }}
           IMAGE_TAG_BRANCH: ${{ steps.image-tags.outputs.branch_tag }}
+          BP_EMBED_CERTS: true
 
       - name: Push OCI to GitHub Packages
         run: |
@@ -130,6 +131,7 @@ jobs:
         env:
           IMAGE_TAG_BRANCH_COMMIT: ${{ steps.image-tags.outputs.branch_commit_tag }}
           IMAGE_TAG_BRANCH: ${{ steps.image-tags.outputs.branch_tag }}
+          BP_EMBED_CERTS: true
 
       - name: Push OCI to GitHub Packages (Dry Run)
         run: |
