@@ -86,13 +86,13 @@ jobs:
       - name: Push OCI to GitHub Packages
         run: |
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
-          IMAGE_ID=ghcr.io/${{ github.repository_owner }}/$IMAGE_NAME
           docker tag $IMAGE_NAME $IMAGE_ID:$IMAGE_TAG_BRANCH_COMMIT
           docker tag $IMAGE_NAME $IMAGE_ID:$IMAGE_TAG_BRANCH
           docker push $IMAGE_ID --all-tags
         env:
           IMAGE_TAG_BRANCH_COMMIT: ${{ steps.image-tags.outputs.branch_commit_tag }}
           IMAGE_TAG_BRANCH: ${{ steps.image-tags.outputs.branch_tag }}
+          IMAGE_ID: ghcr.io/${{ github.repository_owner }}/$IMAGE_NAME
           
   build-push-image-dry-run:
     name: Build OCI Image (Dry Run)
@@ -135,3 +135,14 @@ jobs:
         env:
           IMAGE_TAG_BRANCH_COMMIT: ${{ steps.image-tags.outputs.branch_commit_tag }}
           IMAGE_TAG_BRANCH: ${{ steps.image-tags.outputs.branch_tag }}
+      
+      - name: Push OCI to GitHub Packages (Dry Run)
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
+          echo docker tag $IMAGE_NAME $IMAGE_ID:$IMAGE_TAG_BRANCH_COMMIT
+          echo docker tag $IMAGE_NAME $IMAGE_ID:$IMAGE_TAG_BRANCH
+          echo docker push $IMAGE_ID --all-tags
+        env:
+          IMAGE_TAG_BRANCH_COMMIT: ${{ steps.image-tags.outputs.branch_commit_tag }}
+          IMAGE_TAG_BRANCH: ${{ steps.image-tags.outputs.branch_tag }}
+          IMAGE_ID: ghcr.io/${{ github.repository_owner }}/$IMAGE_NAME
