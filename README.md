@@ -117,3 +117,16 @@ mutation newEmployee {
 - [Dependabot](https://github.com/rowi1de/graphql-reactive/blob/main/.github/dependabot.yml)
 ## Actions
 - [![Automatically Update Dependencies](https://github.com/rowi1de/graphql-reactive/actions/workflows/auto-merge-dependabot.yaml/badge.svg)](https://github.com/rowi1de/graphql-reactive/actions/workflows/auto-merge-dependabot.yaml) self-approving Dependabot PRs
+
+# CI / CD
+- GitHub Actions + ArgoCD
+## CI GitHub Actions
+- See [Releases](https://github.com/rowi1de/graphql-reactive/releases) for current released versions
+- See [Packages](https://github.com/rowi1de?tab=packages&repo_name=graphql-reactive) for current published helm chart as OCI
+
+##  CD ArgoCD [![App Status](https://argocd.robert-wiesner.de/api/badge?name=services&revision=true)](https://argocd.robert-wiesner.de/applications/services)
+- See [Deployments](https://github.com/rowi1de/graphql-reactive/deployments)
+- See [Cluster Repo](https://github.com/rowi1de/argocd)
+- To deploy, change the version in the argocd repo and create a PR (you can also manually change the version in [argocd for testing (!)](https://argocd.robert-wiesner.de/applications/graphql-reactive?view=tree&resource=&node=argoproj.io%2FApplication%2Fargocd%2Fgraphql-reactive%2F0)):
+- [services/graphql-reactive](https://github.com/rowi1de/argocd/blob/main/services/graphql-reactive.yaml#L11) [![App Status](https://argocd.robert-wiesner.de/api/badge?name=graphql-reactive&revision=true)](https://argocd.robert-wiesner.de/applications/graphql-reactive)
+  
