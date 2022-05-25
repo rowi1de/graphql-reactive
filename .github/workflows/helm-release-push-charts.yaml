@@ -69,6 +69,21 @@ jobs:
           
       - name: Install helm
         uses: Azure/setup-helm@v1
+
+      - name: Package Chart
+        run: |
+          helm package .
+        working-directory: ./k8s/helm
+
+      - name: Index Repo k8s/helm
+        run: |
+          helm index .
+        working-directory: ./k8s/helm
+
+      - name: Index Repo k8s/helm
+        run: |
+          helm index .
+        working-directory: ./k8s/helm
           
       - name: Push helm chart
         uses: appany/helm-oci-chart-releaser@v0.3.0
