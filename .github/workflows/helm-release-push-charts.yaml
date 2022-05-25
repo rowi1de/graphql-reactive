@@ -77,12 +77,12 @@ jobs:
 
       - name: Index Repo k8s/helm
         run: |
-          helm index .
+          helm repo index .
         working-directory: ./k8s/helm
 
       - name: Index Repo k8s/helm
         run: |
-          helm index .
+          helm repo index .
         working-directory: ./k8s
           
       - name: Push helm chart
