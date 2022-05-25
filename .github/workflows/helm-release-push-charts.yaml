@@ -83,7 +83,7 @@ jobs:
       - name: Index Repo k8s/helm
         run: |
           helm index .
-        working-directory: ./k8s/helm
+        working-directory: ./k8s
           
       - name: Push helm chart
         uses: appany/helm-oci-chart-releaser@v0.3.0
