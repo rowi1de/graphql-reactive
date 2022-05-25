@@ -1,0 +1,17 @@
+apiVersion: v1
+entries:
+  graphql-reactive:
+  - apiVersion: v2
+    appVersion: 0.0.2
+    created: "2022-05-25T13:24:04.562185+02:00"
+    description: graphql-reactive deployment
+    digest: 300c58b09bdaf369afd7701768d8bc432c47a0a0a9d3a2a6020cd3802037ad4f
+    maintainers:
+    - name: rowi1de
+      url: https://github.com/rowi1de
+    name: graphql-reactive
+    type: application
+    urls:
+    - helm/graphql-reactive-0.0.2.tgz
+    version: 0.0.2
+generated: "2022-05-25T13:24:04.56129+02:00"
