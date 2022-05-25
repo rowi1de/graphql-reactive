@@ -95,6 +95,19 @@ jobs:
            name: graphql-reactive
            path: k8s/helm
            tag: ${{ steps.semvers.outputs.patch }}
+           
+      - name: Configure Git
+        run: |
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"  
+          
+      - name: Run chart-releaser
+        uses: helm/chart-releaser-action@v1.2.0
+        with: 
+          charts_dir: "k8s/helm"
+          
+        env:
+         CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
           
       - name: Create Release
         uses: actions/create-release@latest
