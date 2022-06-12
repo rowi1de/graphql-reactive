@@ -95,7 +95,7 @@ jobs:
           token: ${{ secrets.REPO_ACCESS_TOKEN }}
           tag: ${{ steps.semvers.outputs.patch }}
           commit: ${{ github.sha }}
-          name: ocpi-service ${{ steps.semvers.outputs.patch }}
+          name: graphql-reactive ${{ steps.semvers.outputs.patch }}
           draft: false
           prerelease: false
           generateReleaseNotes: true
