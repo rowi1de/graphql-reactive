@@ -6,6 +6,7 @@ on:
     types: [completed]
     branches: 
     - main
+  workflow_dispatch:
   
 jobs:
   helm-publish-and-release-charts:
@@ -70,21 +71,7 @@ jobs:
       - name: Install helm
         uses: Azure/setup-helm@v1
 
-      - name: Package Chart
-        run: |
-          helm package .
-        working-directory: ./k8s/helm
 
-      - name: Index Repo k8s/helm
-        run: |
-          helm repo index .
-        working-directory: ./k8s/helm
-
-      - name: Index Repo k8s/helm
-        run: |
-          helm repo index .
-        working-directory: ./k8s
-          
       - name: Push helm chart
         uses: appany/helm-oci-chart-releaser@v0.3.0
         with:
@@ -100,18 +87,28 @@ jobs:
         run: |
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"  
-          
-          
+
+
       - name: Create Release
-        uses: actions/create-release@latest
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: ncipollo/release-action@v1.10.0
         with:
-          tag_name: ${{ steps.semvers.outputs.patch }}
-          release_name: graphql-reactive ${{ steps.semvers.outputs.patch }}
+          token: ${{ secrets.REPO_ACCESS_TOKEN }}
+          tag: ${{ steps.semvers.outputs.patch }}
+          commit: ${{ github.sha }}
+          name: ocpi-service ${{ steps.semvers.outputs.patch }}
           draft: false
           prerelease: false
+          generateReleaseNotes: true
+          removeArtifacts: true
         
+      - name: Deployment Status Failure
+        if: failure()
+        uses: chrnorm/deployment-status@v2.0.0
+        with:
+          token: "${{ github.token }}"
+          state: "failure"
+          deployment-id: ${{ steps.create-deployment.outputs.deployment_id }} 
+          
       - name: Deployment Status Success
         if: success()
         uses: chrnorm/deployment-status@v2.0.0
@@ -119,42 +116,12 @@ jobs:
           token: "${{ github.token }}"
           state: "success"
           deployment-id: ${{ steps.create-deployment.outputs.deployment_id }}
-     
-      - name: Deployment Status Failure
-        if: failure()
-        uses: chrnorm/deployment-status@v2.0.0
-        with:
-          token: "${{ github.token }}"
-          state: "failure"
-          deployment-id: ${{ steps.create-deployment.outputs.deployment_id }}
           
-          
-  helm-deploy-release:          
-    runs-on: ubuntu-latest
-    needs: [helm-publish-and-release-charts]
-    steps:
-      - name: Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.9.1
-        with:
-          access_token: ${{ github.token }}
-
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          repository: rowi1de/argocd
-          
-          
-      - name: Get latest Release
-        id: get-latest-release
-        uses: joutvhu/get-release@v1
-        with:
-          latest: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          
-      - uses: ./.github/workflows/my-action
-        with:
-          repository: ${{ github.repository }}
-          semVer:  ${{ steps.get-latest-release.outputs.tag_name }}
-          
+      - name: Write original author
+        run: echo ${{ github.actor }} > ${{ steps.semvers.outputs.patch }}-github.actor
         
+      - name: Upload original Author
+        uses: actions/upload-artifact@v3.1.0
+        with:
+          name: ${{ steps.semvers.outputs.patch }}-github.actor
+          path: ${{ steps.semvers.outputs.patch }}-github.actor
