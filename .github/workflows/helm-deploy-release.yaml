@@ -1,0 +1,97 @@
+name: Deploy Release
+
+on:
+  release:
+    types: [ published ]
+
+  workflow_dispatch:
+    inputs:
+      release-tag:
+        description: 'Tag to deploy (e.g. 0.1.1)'
+        type: string
+        required: true
+
+jobs:
+  deploy-published-release:
+    if: ${{ github.event_name == 'release' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.9.1
+        with:
+          access_token: ${{ github.token }}
+          
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: ${{  github.event.release.tag_name }}
+          
+      - name: Get Last Tag Commit Author
+        id: tag-commit-author
+        run: |
+          echo ::set-output name=name::$(git log -1 --pretty=format:'%an')
+          echo ::set-output name=email::$(git log -1 --pretty=format:'%ae')
+          
+      - name: Get Tag Commit Info
+        id: tag-commit-info
+        run: |
+          echo ::set-output name=message::$(git  log -n 1 --pretty=format:'%s')   
+          echo ::set-output name=commit::$(git log -n 1 --format=format:%H)           
+          
+      - name: Trigger Release Deploy Workflow
+        uses: peter-evans/repository-dispatch@v2
+        with:
+          event-type: release-created
+          repository: rowi1de/argocd
+          token: ${{ secrets.REPO_ACCESS_TOKEN }}
+          client-payload: |
+            {
+              "repository": "${{ github.repository }}",
+              "release_tag": "${{  github.event.release.tag_name }}",
+              "sha": "${{ steps.tag-commit-info.outputs.commit}}", 
+              "author": "${{ steps.tag-commit-author.outputs.name }} (${{ steps.tag-commit-author.outputs.email}})", 
+              "actor": "${{ github.actor }}", 
+              "manifest": "./services/graphql-reactive.yaml",
+              "message" : "Automated trigger ${{ inputs.release-tag }} by ${{ github.actor }} : ${{ steps.tag-commit-info.outputs.message}}"
+            }
+
+  deploy-manual-release:
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'workflow_dispatch' }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: ${{  inputs.release-tag }}
+          
+      - name: Get Tag Commit Author
+        id: tag-commit-author
+        run: |
+          echo ::set-output name=name::$(git log -1 --pretty=format:'%an')
+          echo ::set-output name=email::$(git log -1 --pretty=format:'%ae')
+      
+      - name: Get Tag Commit Info
+        id: tag-commit-info
+        run: |
+          echo ::set-output name=message::$(git  log -n 1 --pretty=format:'%s')   
+          echo ::set-output name=commit::$(git log -n 1 --format=format:%H) 
+      
+      - name: Trigger Manual Deploy Workflow
+        uses: peter-evans/repository-dispatch@v2
+        with:
+          event-type: release-created
+          repository: rowi1de/argocd
+          token: ${{ secrets.REPO_ACCESS_TOKEN }}
+          client-payload: |
+            {
+              "repository": "${{ github.repository }}",
+              "release_tag": "${{ inputs.release-tag }}",
+              "sha": "${{ steps.tag-commit-info.outputs.commit}}", 
+              "actor": "${{ github.actor }}", 
+              "author": "${{ steps.tag-commit-author.outputs.name }} (${{ steps.tag-commit-author.outputs.email}})", 
+              "manifest": "./services/graphql-reactive.yaml",
+              "message" : "Manual trigger ${{ inputs.release-tag }} by ${{ github.actor }} : ${{ steps.tag-commit-info.outputs.message}}"
+            }
+
