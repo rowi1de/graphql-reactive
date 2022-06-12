@@ -106,14 +106,14 @@ jobs:
       - name: Create Release
         uses: ncipollo/release-action@v1.10.0
         with:
-          token: ${{ secrets.REEV_SHARED_TOKEN }}
+          token: ${{ secrets.REPO_ACCESS_TOKEN }}
           tag: ${{ steps.semvers.outputs.patch }}
           commit: ${{ github.sha }}
           name: ocpi-service ${{ steps.semvers.outputs.patch }}
           draft: false
           prerelease: false
           generateReleaseNotes: true
-          removeArtifacts: tru
+          removeArtifacts: true
         
       - name: Deployment Status Failure
         if: failure()
