@@ -43,7 +43,7 @@ jobs:
         uses: peter-evans/repository-dispatch@v2
         with:
           event-type: release-created
-          repository: emonvia/cluster
+          repository: rowi1de/argocd
           token: ${{ secrets.REPO_ACCESS_TOKEN }}
           client-payload: |
             {
@@ -52,8 +52,7 @@ jobs:
               "sha": "${{ steps.tag-commit-info.outputs.commit}}", 
               "author": "${{ steps.tag-commit-author.outputs.name }} (${{ steps.tag-commit-author.outputs.email}})", 
               "actor": "${{ github.actor }}", 
-              "service_manifest": "./services/ocpi-service/canary/service.yaml",
-              "ingress_manifest": "./services/ocpi-service/canary/ingress.yaml",
+              "manifest": "./services/graphql-reactive.yaml",
               "message" : "Automated trigger ${{ inputs.release-tag }} by ${{ github.actor }} : ${{ steps.tag-commit-info.outputs.message}}"
             }
 
@@ -83,7 +82,7 @@ jobs:
         uses: peter-evans/repository-dispatch@v2
         with:
           event-type: release-created
-          repository: emonvia/cluster
+          repository: rowi1de/argocd
           token: ${{ secrets.REPO_ACCESS_TOKEN }}
           client-payload: |
             {
