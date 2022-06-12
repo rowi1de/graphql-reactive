@@ -132,10 +132,14 @@ jobs:
           
   helm-deploy-release:          
     if:  ${{ github.event.workflow_run.conclusion == 'success' }} || ${{ github.event_name == 'workflow_dispatch' }}
-    uses: rowi1de/argocd/.github/workflows/release-trigger-other-repos.yaml@main
-    with:
-      repository: ${{ github.repository }}
-      semVer:  "1.0.0"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Deploy Workflow
+        uses: peter-evans/repository-dispatch@v2
+        with:
+          token: ${{ secrets.REPO_ACCESS_TOKEN }}
+          event-type: release-created
+          repository: rowi1de/argocd
           
      
     
