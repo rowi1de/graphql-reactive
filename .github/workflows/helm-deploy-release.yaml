@@ -44,7 +44,7 @@ jobs:
         with:
           event-type: release-created
           repository: emonvia/cluster
-          token: ${{ secrets.REEV_SHARED_TOKEN }}
+          token: ${{ secrets.REPO_ACCESS_TOKEN }}
           client-payload: |
             {
               "repository": "${{ github.repository }}",
@@ -84,7 +84,7 @@ jobs:
         with:
           event-type: release-created
           repository: emonvia/cluster
-          token: ${{ secrets.REEV_SHARED_TOKEN }}
+          token: ${{ secrets.REPO_ACCESS_TOKEN }}
           client-payload: |
             {
               "repository": "${{ github.repository }}",
