@@ -140,4 +140,4 @@ jobs:
           event-type: release-created
           repository: rowi1de/argocd
           token: ${{ secrets.REPO_ACCESS_TOKEN }}
-          
+          client-payload: '{"repository": "${{ github.repository }}", "sha": "${{ github.sha }}", "actor": "${{ github.actor }}"}'
