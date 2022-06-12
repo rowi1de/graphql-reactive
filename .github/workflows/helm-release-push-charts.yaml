@@ -139,12 +139,6 @@ jobs:
         uses: styfle/cancel-workflow-action@0.9.1
         with:
           access_token: ${{ github.token }}
-
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          repository: rowi1de/argocd
-          
           
       - name: Get latest Release
         id: get-latest-release
@@ -154,7 +148,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
-      - uses: ./.github/workflows/release-trigger-other-repos.yaml
+      - uses: rowi1de/argocd/.github/workflows/release-trigger-other-repos.yaml@main
         with:
           repository: ${{ github.repository }}
           semVer:  ${{ steps.get-latest-release.outputs.tag_name }}
