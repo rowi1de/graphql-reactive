@@ -101,13 +101,6 @@ jobs:
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"  
           
-      - name: Run chart-releaser
-        uses: helm/chart-releaser-action@v1.4.0
-        with: 
-          charts_dir: "k8s/helm"
-          
-        env:
-         CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
           
       - name: Create Release
         uses: actions/create-release@latest
@@ -135,3 +128,33 @@ jobs:
           state: "failure"
           deployment-id: ${{ steps.create-deployment.outputs.deployment_id }}
           
+          
+  helm-deploy-release:          
+    runs-on: ubuntu-latest
+    needs: [helm-publish-and-release-charts]
+    steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.9.1
+        with:
+          access_token: ${{ github.token }}
+
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          repository: rowi1de/argocd
+          
+          
+      - name: Get latest Release
+        id: get-latest-release
+        uses: joutvhu/get-release@v1
+        with:
+          latest: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+      - uses: ./.github/workflows/my-action
+        with:
+          repository: ${{ github.repository }}
+          semVer:  ${{ steps.get-latest-release.outputs.tag_name }}
+          
+        
