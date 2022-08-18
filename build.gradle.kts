@@ -28,7 +28,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
 
     // GraphQL
-    implementation("com.expediagroup:graphql-kotlin-spring-server:6.2.0")
+    implementation("com.expediagroup:graphql-kotlin-spring-server:6.2.1")
 
     // Rest
     implementation("org.springdoc:springdoc-openapi-kotlin:1.6.10") {
