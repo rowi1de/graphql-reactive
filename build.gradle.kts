@@ -34,7 +34,7 @@ dependencies {
     implementation("org.springdoc:springdoc-openapi-kotlin:1.6.11") {
         exclude("io.github.classgraph", "classgraph")
     }
-    implementation("org.springdoc:springdoc-openapi-webflux-ui:1.6.10") {
+    implementation("org.springdoc:springdoc-openapi-webflux-ui:1.6.11") {
         exclude("io.github.classgraph", "classgraph")
     }
 
