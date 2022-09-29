@@ -5,7 +5,7 @@ plugins {
     id("io.spring.dependency-management") version "1.0.14.RELEASE"
     kotlin("jvm") version "1.7.20"
     kotlin("plugin.spring") version "1.7.10"
-    kotlin("kapt") version "1.7.10"
+    kotlin("kapt") version "1.7.20"
 }
 
 group = "de.rowi1de.graphql"
