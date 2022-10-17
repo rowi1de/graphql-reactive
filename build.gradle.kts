@@ -31,7 +31,7 @@ dependencies {
     implementation("com.expediagroup:graphql-kotlin-spring-server:6.2.5")
 
     // Rest
-    implementation("org.springdoc:springdoc-openapi-kotlin:1.6.11") {
+    implementation("org.springdoc:springdoc-openapi-kotlin:1.6.12") {
         exclude("io.github.classgraph", "classgraph")
     }
     implementation("org.springdoc:springdoc-openapi-webflux-ui:1.6.11") {
