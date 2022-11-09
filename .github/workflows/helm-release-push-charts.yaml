@@ -36,7 +36,7 @@ jobs:
           version: ${{ steps.get-latest-release.outputs.tag_name }}
           
           
-      - uses: chrnorm/deployment-action@v2.0.4
+      - uses: chrnorm/deployment-action@v2.0.5
         name: Create GitHub deployment
         id: create-deployment
         with:
