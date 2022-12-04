@@ -4,7 +4,7 @@ Simple Spring WebFlux Project (see [Help.md](HELP.md)) with:
 
 * Classic Annotation Based REST
 * WebFlux.Fn / coRouter REST
-* [graphql-kotlin](https://github.com/ExpediaGroup/graphql-kotlin) GraphQL ([Why?](https://opensource.expediagroup.com/graphql-kotlin/docs/framework-comparison))
+* [spring-graphql](https://docs.spring.io/spring-graphql/docs/current/reference/html) GraphQL ([Why?](https://opensource.expediagroup.com/graphql-kotlin/docs/framework-comparison))
 
 ## Kotlin
 
