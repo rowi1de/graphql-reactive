@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("org.springframework.boot") version "2.7.5"
+    id("org.springframework.boot") version "3.0.0"
     id("io.spring.dependency-management") version "1.1.0"
     kotlin("jvm") version "1.7.22"
     kotlin("plugin.spring") version "1.7.22"
@@ -59,17 +59,17 @@ tasks.withType<KotlinCompile> {
 
 tasks.named<org.springframework.boot.gradle.tasks.bundling.BootBuildImage>("bootBuildImage") {
     val fullName = getEnvironmentVariable("REGISTRY", "docker.io/library") + "/" + project.name
-    imageName = fullName
+    imageName.set(fullName)
     val branchCommitHashTag: String? =
         getEnvironmentVariable("IMAGE_TAG_BRANCH_COMMIT")
     val branchLatestHashTag: String? =
         getEnvironmentVariable("IMAGE_TAG_BRANCH")
-    tags = listOfNotNull(
+    tags.addAll( listOfNotNull(
         branchCommitHashTag,
         branchLatestHashTag
     ).map {
         "$fullName:$it"
-    }
+    })
 }
 
 /**
