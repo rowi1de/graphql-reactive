@@ -1,10 +1,8 @@
 type Query {
-    hello: String
-}
-type Mutation {
-    hello(input: String!): String
+    hello(name: String): HelloGraphql!
 }
 
-type Subscription {
-    hello(input: String!): String
+type HelloGraphql{
+    greeting: String!
+    time: String!
 }

@@ -34,16 +34,17 @@ or [js-graphql](https://plugins.jetbrains.com/plugin/8097-js-graphql)
 #### Query
 ```graphql
 #default value
-query helloWorld{
+query default {
   hello {
     greeting
+    time
   }
 }
-
-# with paramter
-query helloRob{
-  hello(name:"Rob") {
+#with input
+query rob {
+  hello(name: "Rob") {
     greeting
+    time
   }
 }
 ```
