@@ -4,7 +4,8 @@ Simple Spring WebFlux Project (see [Help.md](HELP.md)) with:
 
 * Classic Annotation Based REST
 * WebFlux.Fn / coRouter REST
-* [graphql-kotlin](https://github.com/ExpediaGroup/graphql-kotlin) GraphQL ([Why?](https://opensource.expediagroup.com/graphql-kotlin/docs/framework-comparison))
+- Moved from [graphql-kotlin](https://github.com/ExpediaGroup/graphql-kotlin) to [spring-graphql](https://docs.spring.io/spring-graphql/docs/current/reference/html)
+- For [graphql-kotlin](https://opensource.expediagroup.com/graphql-kotlin/docs/framework-comparison) impl. with Spring Boot 2.x.x use [#811dcc2](https://github.com/rowi1de/graphql-reactive/commit/c88c63b40584c5e0ef3d64d6ee4a108bd5608aa1)
 
 ## Kotlin
 
@@ -25,26 +26,26 @@ This project uses [ktlint](https://ktlint.github.io/)
 ### Graphql
 * graphql Endpoints
   * [graphql](http://localhost:8082/graphql)
-  * [playground](http://localhost:8082/playground)
-  * [sdl](http://localhost:8082/sdl)
-  * [subscription](http://localhost:8082/subscription)
+  * [graphiql](http://localhost:8082/graphiql)
+  * [subscription](http://localhost:8082/subscriptions)
 
-Use [playground](http://localhost:8082/playground) to execute queries and browse schema
+Use [graphiql](http://localhost:8082/graphiql) to execute queries and browse schema
 or [js-graphql](https://plugins.jetbrains.com/plugin/8097-js-graphql)
 
 #### Query
 ```graphql
 #default value
-query helloWorld{
+query default {
   hello {
     greeting
+    time
   }
 }
-
-# with paramter
-query helloRob{
-  hello(name:"Rob") {
+#with input
+query rob {
+  hello(name: "Rob") {
     greeting
+    time
   }
 }
 ```

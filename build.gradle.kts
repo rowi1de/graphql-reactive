@@ -5,7 +5,6 @@ plugins {
     id("io.spring.dependency-management") version "1.1.0"
     kotlin("jvm") version "1.7.22"
     kotlin("plugin.spring") version "1.7.22"
-    kotlin("kapt") version "1.7.22"
 }
 
 group = "de.rowi1de.graphql"
@@ -27,8 +26,6 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
 
-    // GraphQL
-    implementation("com.expediagroup:graphql-kotlin-spring-server:6.3.0")
 
     // Rest
     implementation("org.springdoc:springdoc-openapi-kotlin:1.6.13") {
@@ -38,13 +35,23 @@ dependencies {
         exclude("io.github.classgraph", "classgraph")
     }
 
+    // GraphQL
+    implementation("org.springframework.boot:spring-boot-starter-graphql")
+
     developmentOnly("org.springframework.boot:spring-boot-devtools")
+    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
+
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("io.projectreactor:reactor-test")
     testImplementation("org.springframework.security:spring-security-test")
-    kapt("org.springframework.boot:spring-boot-configuration-processor")
-}
+    testImplementation("org.springframework.graphql:spring-graphql-test")
 
+}
+configurations {
+    compileOnly {
+        extendsFrom(configurations.annotationProcessor.get())
+    }
+}
 tasks.withType<KotlinCompile> {
     kotlinOptions {
         freeCompilerArgs = listOf(

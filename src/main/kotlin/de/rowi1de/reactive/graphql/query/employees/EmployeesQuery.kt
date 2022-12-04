@@ -1,15 +1,17 @@
 package de.rowi1de.reactive.graphql.query.employees
 
-import com.expediagroup.graphql.server.operations.Query
 import de.rowi1de.reactive.graphql.model.employees.Employees
 import de.rowi1de.reactive.graphql.model.employees.Teams
 import de.rowi1de.reactive.service.employees.EmployeeService
-import org.springframework.stereotype.Component
+import org.springframework.graphql.data.method.annotation.QueryMapping
+import org.springframework.stereotype.Controller
 
-@Component
-class EmployeesQuery(private val service: EmployeeService) : Query {
+@Controller
+class EmployeesQuery(private val service: EmployeeService)  {
 
+    @QueryMapping
     suspend fun employees(): Employees = Employees(service.getEmployees())
 
+    @QueryMapping
     suspend fun teams(): Teams = Teams(service.getTeams())
 }

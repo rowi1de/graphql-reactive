@@ -1,0 +1,8 @@
+type Query {
+    hello(name: String): HelloGraphql!
+}
+
+type HelloGraphql{
+    greeting: String!
+    time: String!
+}
