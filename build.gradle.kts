@@ -59,17 +59,17 @@ tasks.withType<KotlinCompile> {
 
 tasks.named<org.springframework.boot.gradle.tasks.bundling.BootBuildImage>("bootBuildImage") {
     val fullName = getEnvironmentVariable("REGISTRY", "docker.io/library") + "/" + project.name
-    imageName = fullName
+    imageName.set(fullName)
     val branchCommitHashTag: String? =
         getEnvironmentVariable("IMAGE_TAG_BRANCH_COMMIT")
     val branchLatestHashTag: String? =
         getEnvironmentVariable("IMAGE_TAG_BRANCH")
-    tags = listOfNotNull(
+    tags.addAll( listOfNotNull(
         branchCommitHashTag,
         branchLatestHashTag
     ).map {
         "$fullName:$it"
-    }
+    })
 }
 
 /**
