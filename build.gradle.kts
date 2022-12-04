@@ -26,8 +26,6 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
 
-    // GraphQL
-    implementation("com.expediagroup:graphql-kotlin-spring-server:6.3.0")
 
     // Rest
     implementation("org.springdoc:springdoc-openapi-kotlin:1.6.13") {
@@ -37,6 +35,7 @@ dependencies {
         exclude("io.github.classgraph", "classgraph")
     }
 
+    // GraphQL
     implementation("org.springframework.boot:spring-boot-starter-graphql")
 
     developmentOnly("org.springframework.boot:spring-boot-devtools")
