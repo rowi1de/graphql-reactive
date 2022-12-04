@@ -68,9 +68,6 @@ jobs:
           path: version 
           set:  ${{ steps.semvers.outputs.patch }}
           
-      - name: Install helm
-        uses: Azure/setup-helm@v1
-
 
       - name: Push helm chart
         uses: appany/helm-oci-chart-releaser@v0.4.0
