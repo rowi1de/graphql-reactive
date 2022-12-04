@@ -1,15 +1,14 @@
 package de.rowi1de.reactive.graphql.subscription
 
-import com.expediagroup.graphql.generator.annotations.GraphQLDescription
-import com.expediagroup.graphql.server.operations.Subscription
 import de.rowi1de.reactive.graphql.model.HelloGraphql
-import org.springframework.stereotype.Component
+import org.springframework.graphql.data.method.annotation.SubscriptionMapping
+import org.springframework.stereotype.Controller
 import reactor.core.publisher.Flux
 import java.time.Duration
 
-@Component
-class HelloSubscription : Subscription {
-    @GraphQLDescription("Greet every second")
+@Controller
+class HelloSubscription {
+    @SubscriptionMapping
     suspend fun hello(name: String): Flux<HelloGraphql> = Flux.interval(Duration.ofSeconds(1))
         .map { HelloGraphql("$name $it") }
 }

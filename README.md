@@ -25,11 +25,10 @@ This project uses [ktlint](https://ktlint.github.io/)
 ### Graphql
 * graphql Endpoints
   * [graphql](http://localhost:8082/graphql)
-  * [playground](http://localhost:8082/playground)
-  * [sdl](http://localhost:8082/sdl)
-  * [subscription](http://localhost:8082/subscription)
+  * [graphiql](http://localhost:8082/graphiql)
+  * [subscription](http://localhost:8082/subscriptions)
 
-Use [playground](http://localhost:8082/playground) to execute queries and browse schema
+Use [graphiql](http://localhost:8082/graphiql) to execute queries and browse schema
 or [js-graphql](https://plugins.jetbrains.com/plugin/8097-js-graphql)
 
 #### Query
