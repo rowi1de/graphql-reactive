@@ -25,3 +25,4 @@
 /.nb-gradle/
 /.gradle/
 /graphql/schema.graphql
+**/*.tgz
