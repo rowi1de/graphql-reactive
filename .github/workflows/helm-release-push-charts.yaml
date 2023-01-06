@@ -118,7 +118,7 @@ jobs:
         run: echo ${{ github.actor }} > ${{ steps.semvers.outputs.patch }}-github.actor
         
       - name: Upload original Author
-        uses: actions/upload-artifact@v3.1.1
+        uses: actions/upload-artifact@v3.1.2
         with:
           name: ${{ steps.semvers.outputs.patch }}-github.actor
           path: ${{ steps.semvers.outputs.patch }}-github.actor
