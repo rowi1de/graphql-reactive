@@ -22,7 +22,7 @@ class SecurityConfig {
                 .pathMatchers(
                     "/graphql", // single graphql POST Endpoint for query / mutations /  introspection
                     "/graphiql", // playground
-                    "/sdl", // schema
+                    "/graphql/schema", // schema
                     "/subscriptions" // apollo compatible websocket subscription
                 )
                 .permitAll()

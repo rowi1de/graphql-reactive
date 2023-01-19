@@ -28,6 +28,7 @@ This project uses [ktlint](https://ktlint.github.io/)
   * [graphql](http://localhost:8082/graphql)
   * [graphiql](http://localhost:8082/graphiql)
   * [subscription](http://localhost:8082/subscriptions)
+  * [schema](http://localhost:8082/graphql/schema)
 
 Use [graphiql](http://localhost:8082/graphiql) to execute queries and browse schema
 or [js-graphql](https://plugins.jetbrains.com/plugin/8097-js-graphql)

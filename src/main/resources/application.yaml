@@ -28,11 +28,16 @@ management:
 
 spring:
   graphql:
+
     websocket:
       path: /subscriptions
     graphiql:
       enabled: true
       path: /graphiql
+    schema:
+      printer:
+        enabled: true
+
   security:
     user:
       name: user
