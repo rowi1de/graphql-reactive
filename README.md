@@ -49,7 +49,12 @@ query rob {
     time
   }
 }
+
 ```
+> **Note**
+> The following examples are **not** migrated from [graphql-kotlin](https://opensource.expediagroup.com/graphql-kotlin/docs/framework-comparison) yet, for working examples use [#811dcc2](https://github.com/rowi1de/graphql-reactive/commit/c88c63b40584c5e0ef3d64d6ee4a108bd5608aa1)
+
+
 - Partial Results / Errors
 ```graphql
 query hello {
