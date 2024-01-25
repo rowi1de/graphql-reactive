@@ -40,7 +40,7 @@ jobs:
           echo ::set-output name=commit::$(git log -n 1 --format=format:%H)           
           
       - name: Trigger Release Deploy Workflow
-        uses: peter-evans/repository-dispatch@v2
+        uses: peter-evans/repository-dispatch@v3
         with:
           event-type: release-created
           repository: rowi1de/argocd
@@ -79,7 +79,7 @@ jobs:
           echo ::set-output name=commit::$(git log -n 1 --format=format:%H) 
       
       - name: Trigger Manual Deploy Workflow
-        uses: peter-evans/repository-dispatch@v2
+        uses: peter-evans/repository-dispatch@v3
         with:
           event-type: release-created
           repository: rowi1de/argocd
