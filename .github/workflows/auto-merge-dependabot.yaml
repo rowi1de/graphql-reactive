@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Enable Github Automerge
-      uses: alexwilson/enable-github-automerge-action@1.0.0
+      uses: alexwilson/enable-github-automerge-action@2.0.0
       with:
         github-token: "${{ secrets.GITHUB_TOKEN }}"
       if: github.event.pull_request.user.login == 'dependabot[bot]' && contains(github.event.pull_request.labels.*.name, 'dependencies')
@@ -24,7 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Approve dependabot PRs
-        uses: alexwilson/enable-github-automerge-action@1.0.0
+        uses: alexwilson/enable-github-automerge-action@2.0.0
         if: github.event.pull_request.user.login == 'dependabot[bot]' && contains(github.event.pull_request.labels.*.name, 'dependencies')
         with:
          github-token: "${{ secrets.GITHUB_TOKEN }}"
