@@ -70,7 +70,7 @@ jobs:
           
 
       - name: Push helm chart
-        uses: appany/helm-oci-chart-releaser@v0.4.1
+        uses: appany/helm-oci-chart-releaser@v0.4.2
         with:
            repository: graphql-reactive
            registry: ghcr.io/${{ github.repository_owner }}
